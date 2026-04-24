@@ -107,7 +107,9 @@ export function SiteHeader({ transparent = false }: { transparent?: boolean }) {
           }`}>
             <p className="text-sm text-rose-deep/60">Ready for your transformation?</p>
             <a
-              href="https://wa.me/19296342823"
+              href="https://wa.me/13312037251?text=Can%20i%20get%20More%20Infor%20about%20my%20session"
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-4 inline-block font-serif text-2xl text-primary"
             >
               Book via WhatsApp

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { use3dTilt } from "@/hooks/use-3d-tilt";
 import workCenter from "@/assets/work-center.jpg?w=320;480;680;880&format=webp&as=srcset";
 import workLeft from "@/assets/work-left.jpg?w=320;480;680;880&format=webp&as=srcset";
 import workRight from "@/assets/work-right.jpg?w=320;480;680;880&format=webp&as=srcset";
@@ -19,23 +20,59 @@ import nail4 from "@/assets/nail-4.jpg?w=320;480;680;880&format=webp&as=srcset";
 import nail5 from "@/assets/nail-5.jpg?w=320;480;680;880&format=webp&as=srcset";
 
 const images = [
-  { srcSet: workLeft, alt: "Subtle nude polish manicure" },
-  { srcSet: workCenter, alt: "French-style manicure with teardrop gem" },
-  { srcSet: workRight, alt: "Pink-to-nude ombre manicure" },
-  { srcSet: gallery1, alt: "Butterfly wing nail art in blue, pink and black" },
-  { srcSet: gallery2, alt: "Long French tips with pink floral nail art" },
-  { srcSet: gallery3, alt: "Glitter ombre French manicure" },
-  { srcSet: gallery4, alt: "Pastel green French tips with pink flowers" },
-  { srcSet: gallery5, alt: "Black and white floral French manicure" },
-  { srcSet: gallery6, alt: "Classic long French tips with crystal accents" },
-  { srcSet: gallery7, alt: "Black French tips with daisy nail art" },
-  { srcSet: gallery8, alt: "Almond nails with black and silver swirl design" },
-  { srcSet: nail1, alt: "Iridescent purple chrome stiletto nails" },
-  { srcSet: nail2, alt: "Green and pink ombre nails with gold 3D accents" },
-  { srcSet: nail3, alt: "Nude nails with silver stars and evil eye design" },
-  { srcSet: nail4, alt: "Pink French ombre nails with 3D flower detail" },
-  { srcSet: nail5, alt: "Pink glitter French tips with rhinestone accents" },
+  { srcSet: workLeft, alt: "Subtle nude polish manicure", title: "Nude Elegance" },
+  { srcSet: workCenter, alt: "French-style manicure with teardrop gem", title: "French Teardrop" },
+  { srcSet: workRight, alt: "Pink-to-nude ombre manicure", title: "Pink Ombre" },
+  { srcSet: gallery1, alt: "Butterfly wing nail art in blue, pink and black", title: "Butterfly Art" },
+  { srcSet: gallery2, alt: "Long French tips with pink floral nail art", title: "Floral French" },
+  { srcSet: gallery3, alt: "Glitter ombre French manicure", title: "Glitter French" },
+  { srcSet: gallery4, alt: "Pastel green French tips with pink flowers", title: "Pastel Garden" },
+  { srcSet: gallery5, alt: "Black and white floral French manicure", title: "Monochrome Floral" },
+  { srcSet: gallery6, alt: "Classic long French tips with crystal accents", title: "Crystal French" },
+  { srcSet: gallery7, alt: "Black French tips with daisy nail art", title: "Daisy French" },
+  { srcSet: gallery8, alt: "Almond nails with black and silver swirl design", title: "Swirl Design" },
+  { srcSet: nail1, alt: "Iridescent purple chrome stiletto nails", title: "Chrome Stiletto" },
+  { srcSet: nail2, alt: "Green and pink ombre nails with gold 3D accents", title: "3D Gold Accents" },
+  { srcSet: nail3, alt: "Nude nails with silver stars and evil eye design", title: "Celestial Nude" },
+  { srcSet: nail4, alt: "Pink French ombre nails with 3D flower detail", title: "3D Floral" },
+  { srcSet: nail5, alt: "Detailed Japanese-style nail art with 3D accents", title: "Sculpted Details" },
 ];
+
+function InteractiveCard({ img }: { img: (typeof images)[0] }) {
+  const tilt = use3dTilt({ max: 12, perspective: 1000, scale: 1.05 });
+
+  return (
+    <article
+      className="group relative h-full w-full will-change-transform"
+      onMouseMove={tilt.onMouseMove}
+      onMouseLeave={tilt.onMouseLeave}
+      style={tilt.style}
+    >
+      <div className="relative h-full w-full overflow-hidden rounded-[2rem] bg-white shadow-soft transition-smooth group-hover:shadow-float">
+        <img
+          srcSet={img.srcSet}
+          alt={img.alt}
+          loading="lazy"
+          className="h-full w-full object-cover transition-smooth duration-700 group-hover:scale-110"
+        />
+        
+        {/* Shimmer Overlay */}
+        <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+          <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-white/30 to-transparent" />
+          <Sparkles className="absolute right-6 top-6 h-6 w-6 animate-pulse text-white/80" />
+        </div>
+
+        {/* Floating Tag */}
+        <div className="absolute bottom-6 left-6 right-6 translate-y-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+          <div className="rounded-2xl bg-white/30 p-4 backdrop-blur-md">
+            <p className="font-serif text-lg font-medium text-white">{img.title}</p>
+            <p className="text-xs font-medium uppercase tracking-widest text-white/80">View Detail</p>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}
 
 export function Gallery({ showGrid = false }: { showGrid?: boolean }) {
   const [active, setActive] = useState(1);
@@ -65,7 +102,6 @@ export function Gallery({ showGrid = false }: { showGrid?: boolean }) {
     const dx = t.clientX - touchStartX.current;
     const dy = t.clientY - touchStartY.current;
     if (!swipeHandled.current && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) {
-      // Elastic resistance: dampens further drag the more you pull
       const max = containerWidth.current || 320;
       const sign = dx < 0 ? -1 : 1;
       const abs = Math.abs(dx);
@@ -73,7 +109,6 @@ export function Gallery({ showGrid = false }: { showGrid?: boolean }) {
       setDragX(sign * eased);
     }
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-      // Threshold reached — commit slide change on touchend, not mid-drag
       swipeHandled.current = true;
     }
   };
@@ -89,7 +124,6 @@ export function Gallery({ showGrid = false }: { showGrid?: boolean }) {
     touchStartY.current = null;
   };
 
-  // Preload neighbors (and a small look-ahead) so swiping/clicking feels instant.
   useEffect(() => {
     const neighbors = [
       (active - 2 + images.length) % images.length,
@@ -108,7 +142,6 @@ export function Gallery({ showGrid = false }: { showGrid?: boolean }) {
 
   return (
     <section className="relative bg-blush px-4 pb-20 pt-20 md:pb-28 md:pt-32">
-      {/* Curved top divider - perfectly matched to the theme */}
       <div className="pointer-events-none absolute inset-x-0 top-0 -translate-y-px overflow-hidden leading-[0]">
         <svg
           viewBox="0 0 1440 140"
@@ -211,7 +244,6 @@ export function Gallery({ showGrid = false }: { showGrid?: boolean }) {
           ))}
         </div>
 
-        {/* Full Gallery Grid */}
         {showGrid && (
           <div className="mt-32">
             <h3 className="font-serif text-3xl font-semibold text-rose-deep md:text-4xl">Gallery</h3>
@@ -219,22 +251,10 @@ export function Gallery({ showGrid = false }: { showGrid?: boolean }) {
               Explore our complete collection of bespoke nail designs.
             </p>
             
-            <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {images.map((img, i) => (
-                <div
-                  key={i}
-                  className="group relative h-[400px] overflow-hidden rounded-2xl bg-rose-soft/20 shadow-soft transition-smooth hover:shadow-float"
-                >
-                  <img
-                    srcSet={img.srcSet}
-                    alt={img.alt}
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                    <p className="p-6 text-sm font-medium text-white">{img.alt}</p>
-                  </div>
+                <div key={i} className="aspect-[4/5] bg-transparent">
+                  <InteractiveCard img={img} />
                 </div>
               ))}
             </div>

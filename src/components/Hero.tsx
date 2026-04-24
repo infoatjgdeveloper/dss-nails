@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { Instagram, Facebook, Phone, Menu, X } from "lucide-react";
+import { Instagram, Facebook, Phone, Menu, X, Sparkles } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { use3dTilt } from "@/hooks/use-3d-tilt";
 import heroHands from "@/assets/hero-hands.jpg";
 
 function TikTokIcon({ className }: { className?: string }) {
@@ -13,6 +14,7 @@ function TikTokIcon({ className }: { className?: string }) {
 
 export function Hero() {
   const [isOpen, setIsOpen] = useState(false);
+  const tilt = use3dTilt({ max: 8, perspective: 1200, scale: 1.02 });
 
   // Prevent scroll when menu is open
   useEffect(() => {
@@ -32,6 +34,13 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-hero-gradient px-4 pb-16 pt-6 md:px-8 md:pt-8">
+      {/* Decorative Floating Elements */}
+      <div className="pointer-events-none absolute left-[10%] top-[20%] h-32 w-32 animate-gentle-float rounded-full bg-primary/10 blur-3xl" />
+      <div className="pointer-events-none absolute right-[15%] top-[10%] h-40 w-40 animate-gentle-float rounded-full bg-rose-deep/5 blur-3xl" style={{ animationDelay: "1s" }} />
+      <div className="pointer-events-none absolute bottom-[20%] left-[5%] animate-gentle-float text-primary/20" style={{ animationDuration: "6s" }}>
+        <Sparkles className="h-10 w-10" />
+      </div>
+
       {/* Nav */}
       <nav className="relative z-50 mx-auto flex max-w-7xl items-center justify-between">
         <Link to="/" className="font-serif text-2xl font-semibold tracking-tight text-rose-deep md:text-3xl">
@@ -57,9 +66,14 @@ export function Hero() {
           <a href="tel:9296342823" className="hidden items-center gap-2 rounded-full border border-rose-deep/10 bg-white/40 px-5 py-2.5 text-sm font-medium text-rose-deep backdrop-blur transition-smooth hover:bg-white sm:inline-flex">
             <Phone className="h-4 w-4" /> Call
           </a>
-          <Link to="/contact" className="hidden rounded-full bg-white px-5 py-2.5 text-sm font-medium text-rose-deep shadow-soft transition-smooth hover:shadow-float sm:inline-flex">
+          <a 
+            href="https://wa.me/13312037251?text=Can%20i%20get%20More%20Infor%20about%20my%20session" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="hidden rounded-full bg-white px-5 py-2.5 text-sm font-medium text-rose-deep shadow-soft transition-smooth hover:shadow-float sm:inline-flex"
+          >
             Book Now
-          </Link>
+          </a>
           
           {/* Mobile Menu Toggle */}
           <button
@@ -113,19 +127,25 @@ export function Hero() {
           <div className={`mt-12 w-full px-10 transition-all duration-500 delay-400 ${
             isOpen ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
           }`}>
-            <Link
-              to="/contact"
-              onClick={() => setIsOpen(false)}
+            <a
+              href="https://wa.me/13312037251?text=Can%20i%20get%20More%20Infor%20about%20my%20session"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex w-full items-center justify-center rounded-full bg-primary py-4 text-lg font-semibold text-white shadow-float"
             >
               Book My Session
-            </Link>
+            </a>
           </div>
         </div>
       </div>
 
-      {/* Hero card */}
-      <div className="relative mx-auto mt-10 max-w-7xl overflow-hidden rounded-[2.5rem] shadow-float md:mt-16">
+      {/* Hero card with 3D Tilt */}
+      <div 
+        className="relative mx-auto mt-10 max-w-7xl overflow-hidden rounded-[2.5rem] shadow-float md:mt-16 will-change-transform"
+        onMouseMove={tilt.onMouseMove}
+        onMouseLeave={tilt.onMouseLeave}
+        style={tilt.style}
+      >
         <img
           src={heroHands}
           alt="Elegant hands with French-tip Russian manicure holding white peonies"
