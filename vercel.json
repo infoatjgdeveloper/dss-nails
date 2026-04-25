@@ -5,14 +5,15 @@
       "includeFiles": "dist/**"
     }
   },
-  "rewrites": [
+  "routes": [
     {
-      "source": "/assets/(.*)",
-      "destination": "/dist/client/assets/$1"
+      "src": "/assets/(.*)",
+      "dest": "/dist/client/assets/$1",
+      "continue": true
     },
     {
-      "source": "/(.*)",
-      "destination": "/api/server.js"
+      "src": "/(.*)",
+      "dest": "/api/server.js"
     }
   ]
 }
