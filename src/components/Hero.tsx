@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Instagram, Facebook, Phone, Menu, X, Sparkles } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { use3dTilt } from "@/hooks/use-3d-tilt";
-import heroHands from "@/assets/hero-hands.jpg";
+import heroHands from "@/assets/hero-hands.jpg?w=800&format=webp";
+import heroHandsSet from "@/assets/hero-hands.jpg?w=640;800;1080;1600&format=webp&as=srcset";
 
 function TikTokIcon({ className }: { className?: string }) {
   return (
@@ -148,7 +149,10 @@ export function Hero() {
       >
         <img
           src={heroHands}
+          srcSet={heroHandsSet}
           alt="Elegant hands with French-tip Russian manicure holding white peonies"
+          sizes="100vw"
+          fetchPriority="high"
           width={1080}
           height={1600}
           className="h-[70vh] min-h-[520px] w-full object-cover md:h-[80vh]"

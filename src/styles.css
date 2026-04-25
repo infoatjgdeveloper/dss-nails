@@ -86,6 +86,7 @@
   --ring: oklch(0.62 0.18 355);
   --blush: oklch(0.97 0.02 350);
   --rose-deep: oklch(0.45 0.16 355);
+  --rose-soft: oklch(0.92 0.04 350);
   --gradient-hero: radial-gradient(circle at center, oklch(1 0 0) 0%, oklch(0.97 0.02 350) 100%);
   --gradient-primary: linear-gradient(135deg, oklch(0.62 0.18 355), oklch(0.78 0.13 350));
   --shadow-soft: 0 10px 30px -10px oklch(0.62 0.18 355 / 0.25);

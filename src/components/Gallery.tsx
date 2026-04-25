@@ -2,40 +2,56 @@ import { useEffect, useRef, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import { use3dTilt } from "@/hooks/use-3d-tilt";
-import workCenter from "@/assets/work-center.jpg?w=320;480;680;880&format=webp&as=srcset";
-import workLeft from "@/assets/work-left.jpg?w=320;480;680;880&format=webp&as=srcset";
-import workRight from "@/assets/work-right.jpg?w=320;480;680;880&format=webp&as=srcset";
-import gallery1 from "@/assets/gallery-1.jpeg?w=320;480;680;880&format=webp&as=srcset";
-import gallery2 from "@/assets/gallery-2.jpeg?w=320;480;680;880&format=webp&as=srcset";
-import gallery3 from "@/assets/gallery-3.jpeg?w=320;480;680;880&format=webp&as=srcset";
-import gallery4 from "@/assets/gallery-4.jpeg?w=320;480;680;880&format=webp&as=srcset";
-import gallery5 from "@/assets/gallery-5.jpeg?w=320;480;680;880&format=webp&as=srcset";
-import gallery6 from "@/assets/gallery-6.jpeg?w=320;480;680;880&format=webp&as=srcset";
-import gallery7 from "@/assets/gallery-7.jpeg?w=320;480;680;880&format=webp&as=srcset";
-import gallery8 from "@/assets/gallery-8.jpeg?w=320;480;680;880&format=webp&as=srcset";
-import nail1 from "@/assets/nail-1.jpg?w=320;480;680;880&format=webp&as=srcset";
-import nail2 from "@/assets/nail-2.jpg?w=320;480;680;880&format=webp&as=srcset";
-import nail3 from "@/assets/nail-3.jpg?w=320;480;680;880&format=webp&as=srcset";
-import nail4 from "@/assets/nail-4.jpg?w=320;480;680;880&format=webp&as=srcset";
-import nail5 from "@/assets/nail-5.jpg?w=320;480;680;880&format=webp&as=srcset";
+import workCenter from "@/assets/work-center.jpg?w=680&format=webp";
+import workCenterSet from "@/assets/work-center.jpg?w=320;480;680;880&format=webp&as=srcset";
+import workLeft from "@/assets/work-left.jpg?w=680&format=webp";
+import workLeftSet from "@/assets/work-left.jpg?w=320;480;680;880&format=webp&as=srcset";
+import workRight from "@/assets/work-right.jpg?w=680&format=webp";
+import workRightSet from "@/assets/work-right.jpg?w=320;480;680;880&format=webp&as=srcset";
+import gallery1 from "@/assets/gallery-1.jpeg?w=680&format=webp";
+import gallery1Set from "@/assets/gallery-1.jpeg?w=320;480;680;880&format=webp&as=srcset";
+import gallery2 from "@/assets/gallery-2.jpeg?w=680&format=webp";
+import gallery2Set from "@/assets/gallery-2.jpeg?w=320;480;680;880&format=webp&as=srcset";
+import gallery3 from "@/assets/gallery-3.jpeg?w=680&format=webp";
+import gallery3Set from "@/assets/gallery-3.jpeg?w=320;480;680;880&format=webp&as=srcset";
+import gallery4 from "@/assets/gallery-4.jpeg?w=680&format=webp";
+import gallery4Set from "@/assets/gallery-4.jpeg?w=320;480;680;880&format=webp&as=srcset";
+import gallery5 from "@/assets/gallery-5.jpeg?w=680&format=webp";
+import gallery5Set from "@/assets/gallery-5.jpeg?w=320;480;680;880&format=webp&as=srcset";
+import gallery6 from "@/assets/gallery-6.jpeg?w=680&format=webp";
+import gallery6Set from "@/assets/gallery-6.jpeg?w=320;480;680;880&format=webp&as=srcset";
+import gallery7 from "@/assets/gallery-7.jpeg?w=680&format=webp";
+import gallery7Set from "@/assets/gallery-7.jpeg?w=320;480;680;880&format=webp&as=srcset";
+import gallery8 from "@/assets/gallery-8.jpeg?w=680&format=webp";
+import gallery8Set from "@/assets/gallery-8.jpeg?w=320;480;680;880&format=webp&as=srcset";
+import nail1 from "@/assets/nail-1.jpg?w=680&format=webp";
+import nail1Set from "@/assets/nail-1.jpg?w=320;480;680;880&format=webp&as=srcset";
+import nail2 from "@/assets/nail-2.jpg?w=680&format=webp";
+import nail2Set from "@/assets/nail-2.jpg?w=320;480;680;880&format=webp&as=srcset";
+import nail3 from "@/assets/nail-3.jpg?w=680&format=webp";
+import nail3Set from "@/assets/nail-3.jpg?w=320;480;680;880&format=webp&as=srcset";
+import nail4 from "@/assets/nail-4.jpg?w=680&format=webp";
+import nail4Set from "@/assets/nail-4.jpg?w=320;480;680;880&format=webp&as=srcset";
+import nail5 from "@/assets/nail-5.jpg?w=680&format=webp";
+import nail5Set from "@/assets/nail-5.jpg?w=320;480;680;880&format=webp&as=srcset";
 
 const images = [
-  { srcSet: workLeft, alt: "Subtle nude polish manicure", title: "Nude Elegance" },
-  { srcSet: workCenter, alt: "French-style manicure with teardrop gem", title: "French Teardrop" },
-  { srcSet: workRight, alt: "Pink-to-nude ombre manicure", title: "Pink Ombre" },
-  { srcSet: gallery1, alt: "Butterfly wing nail art in blue, pink and black", title: "Butterfly Art" },
-  { srcSet: gallery2, alt: "Long French tips with pink floral nail art", title: "Floral French" },
-  { srcSet: gallery3, alt: "Glitter ombre French manicure", title: "Glitter French" },
-  { srcSet: gallery4, alt: "Pastel green French tips with pink flowers", title: "Pastel Garden" },
-  { srcSet: gallery5, alt: "Black and white floral French manicure", title: "Monochrome Floral" },
-  { srcSet: gallery6, alt: "Classic long French tips with crystal accents", title: "Crystal French" },
-  { srcSet: gallery7, alt: "Black French tips with daisy nail art", title: "Daisy French" },
-  { srcSet: gallery8, alt: "Almond nails with black and silver swirl design", title: "Swirl Design" },
-  { srcSet: nail1, alt: "Iridescent purple chrome stiletto nails", title: "Chrome Stiletto" },
-  { srcSet: nail2, alt: "Green and pink ombre nails with gold 3D accents", title: "3D Gold Accents" },
-  { srcSet: nail3, alt: "Nude nails with silver stars and evil eye design", title: "Celestial Nude" },
-  { srcSet: nail4, alt: "Pink French ombre nails with 3D flower detail", title: "3D Floral" },
-  { srcSet: nail5, alt: "Detailed Japanese-style nail art with 3D accents", title: "Sculpted Details" },
+  { src: workLeft, srcSet: workLeftSet, alt: "Subtle nude polish manicure", title: "Nude Elegance" },
+  { src: workCenter, srcSet: workCenterSet, alt: "French-style manicure with teardrop gem", title: "French Teardrop" },
+  { src: workRight, srcSet: workRightSet, alt: "Pink-to-nude ombre manicure", title: "Pink Ombre" },
+  { src: gallery1, srcSet: gallery1Set, alt: "Butterfly wing nail art in blue, pink and black", title: "Butterfly Art" },
+  { src: gallery2, srcSet: gallery2Set, alt: "Long French tips with pink floral nail art", title: "Floral French" },
+  { src: gallery3, srcSet: gallery3Set, alt: "Glitter ombre French manicure", title: "Glitter French" },
+  { src: gallery4, srcSet: gallery4Set, alt: "Pastel green French tips with pink flowers", title: "Pastel Garden" },
+  { src: gallery5, srcSet: gallery5Set, alt: "Black and white floral French manicure", title: "Monochrome Floral" },
+  { src: gallery6, srcSet: gallery6Set, alt: "Classic long French tips with crystal accents", title: "Crystal French" },
+  { src: gallery7, srcSet: gallery7Set, alt: "Black French tips with daisy nail art", title: "Daisy French" },
+  { src: gallery8, srcSet: gallery8Set, alt: "Almond nails with black and silver swirl design", title: "Swirl Design" },
+  { src: nail1, srcSet: nail1Set, alt: "Iridescent purple chrome stiletto nails", title: "Chrome Stiletto" },
+  { src: nail2, srcSet: nail2Set, alt: "Green and pink ombre nails with gold 3D accents", title: "3D Gold Accents" },
+  { src: nail3, srcSet: nail3Set, alt: "Nude nails with silver stars and evil eye design", title: "Celestial Nude" },
+  { src: nail4, srcSet: nail4Set, alt: "Pink French ombre nails with 3D flower detail", title: "3D Floral" },
+  { src: nail5, srcSet: nail5Set, alt: "Detailed Japanese-style nail art with 3D accents", title: "Sculpted Details" },
 ];
 
 function InteractiveCard({ img }: { img: (typeof images)[0] }) {
@@ -125,18 +141,25 @@ export function Gallery({ showGrid = false }: { showGrid?: boolean }) {
   };
 
   useEffect(() => {
-    const neighbors = [
+    // Pre-warm the current and neighbor images
+    const targetIndices = [
       (active - 2 + images.length) % images.length,
       (active - 1 + images.length) % images.length,
+      active,
       (active + 1) % images.length,
       (active + 2) % images.length,
     ];
-    neighbors.forEach((i) => {
+    
+    targetIndices.forEach((i) => {
       const img = new Image();
+      img.src = images[i].src;
       img.srcset = images[i].srcSet;
       img.sizes = "(min-width: 768px) 440px, 300px";
-      img.decoding = "async";
-      img.onload = () => setLoaded((s) => (s[i] ? s : { ...s, [i]: true }));
+      if (img.complete) {
+        setLoaded((s) => (s[i] ? s : { ...s, [i]: true }));
+      } else {
+        img.onload = () => setLoaded((s) => (s[i] ? s : { ...s, [i]: true }));
+      }
     });
   }, [active]);
 
@@ -210,14 +233,19 @@ export function Gallery({ showGrid = false }: { showGrid?: boolean }) {
                     <Skeleton className="absolute inset-0 h-full w-full rounded-3xl bg-rose-soft/60" />
                   )}
                   <img
+                    src={img.src}
                     srcSet={img.srcSet}
                     alt={img.alt}
                     sizes={isActive ? "(min-width: 768px) 440px, 300px" : "(min-width: 768px) 340px, 240px"}
                     loading="eager"
                     decoding="async"
                     fetchPriority="high"
-                    onLoad={() => setLoaded((s) => ({ ...s, [i]: true }))}
-                    className={`h-full w-full object-cover transition-[opacity,transform] duration-700 ease-out group-hover:scale-105 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+                    onLoad={(e) => {
+                      if (e.currentTarget.complete) {
+                        setLoaded((s) => ({ ...s, [i]: true }));
+                      }
+                    }}
+                    className={`h-full w-full object-cover transition-opacity duration-500 ease-out group-hover:scale-105 ${isLoaded ? "opacity-100" : "opacity-0"}`}
                   />
                 </button>
               );
