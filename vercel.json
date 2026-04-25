@@ -1,22 +1,14 @@
 {
-  "version": 2,
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/client",
+  "framework": null,
   "functions": {
     "api/server.js": {
-      "includeFiles": "dist/**"
+      "includeFiles": "dist/server/**"
     }
   },
-  "routes": [
-    {
-      "src": "/assets/(.*)",
-      "dest": "/dist/client/assets/$1"
-    },
-    {
-      "src": "/(.*\\.(js|css|png|jpg|jpeg|webp|svg|ico|json|woff2?))$",
-      "dest": "/dist/client/assets/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/api/server.js"
-    }
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/api/server" }
   ]
 }
