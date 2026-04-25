@@ -8,8 +8,11 @@
   "routes": [
     {
       "src": "/assets/(.*)",
-      "dest": "/dist/client/assets/$1",
-      "continue": true
+      "dest": "/dist/client/assets/$1"
+    },
+    {
+      "src": "/(.*\\.(js|css|png|jpg|jpeg|webp|svg|ico|json|woff2?))$",
+      "dest": "/dist/client/assets/$1"
     },
     {
       "src": "/(.*)",
