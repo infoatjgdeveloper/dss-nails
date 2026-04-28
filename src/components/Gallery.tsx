@@ -34,11 +34,22 @@ import nail4 from "@/assets/nail-4.jpg?w=680&format=webp";
 import nail4Set from "@/assets/nail-4.jpg?w=320;480;680;880&format=webp&as=srcset";
 import nail5 from "@/assets/nail-5.jpg?w=680&format=webp";
 import nail5Set from "@/assets/nail-5.jpg?w=320;480;680;880&format=webp&as=srcset";
+import gallery9 from "@/assets/gallery-9.png?w=680&format=webp";
+import gallery9Set from "@/assets/gallery-9.png?w=320;480;680;880&format=webp&as=srcset";
+import gallery10 from "@/assets/gallery-10.png?w=680&format=webp";
+import gallery10Set from "@/assets/gallery-10.png?w=320;480;680;880&format=webp&as=srcset";
+import gallery11 from "@/assets/gallery-11.png?w=680&format=webp";
+import gallery11Set from "@/assets/gallery-11.png?w=320;480;680;880&format=webp&as=srcset";
+import gallery12 from "@/assets/gallery-12.png?w=680&format=webp";
+import gallery12Set from "@/assets/gallery-12.png?w=320;480;680;880&format=webp&as=srcset";
+import gallery13 from "@/assets/gallery-13.png?w=680&format=webp";
+import gallery13Set from "@/assets/gallery-13.png?w=320;480;680;880&format=webp&as=srcset";
+
 
 const images = [
-  { src: workLeft, srcSet: workLeftSet, alt: "Subtle nude polish manicure", title: "Nude Elegance" },
-  { src: workCenter, srcSet: workCenterSet, alt: "French-style manicure with teardrop gem", title: "French Teardrop" },
-  { src: workRight, srcSet: workRightSet, alt: "Pink-to-nude ombre manicure", title: "Pink Ombre" },
+  // { src: workLeft, srcSet: workLeftSet, alt: "Subtle nude polish manicure", title: "Nude Elegance" },
+  // { src: workCenter, srcSet: workCenterSet, alt: "French-style manicure with teardrop gem", title: "French Teardrop" },
+  // { src: workRight, srcSet: workRightSet, alt: "Pink-to-nude ombre manicure", title: "Pink Ombre" },
   { src: gallery1, srcSet: gallery1Set, alt: "Butterfly wing nail art in blue, pink and black", title: "Butterfly Art" },
   { src: gallery2, srcSet: gallery2Set, alt: "Long French tips with pink floral nail art", title: "Floral French" },
   { src: gallery3, srcSet: gallery3Set, alt: "Glitter ombre French manicure", title: "Glitter French" },
@@ -52,6 +63,11 @@ const images = [
   { src: nail3, srcSet: nail3Set, alt: "Nude nails with silver stars and evil eye design", title: "Celestial Nude" },
   { src: nail4, srcSet: nail4Set, alt: "Pink French ombre nails with 3D flower detail", title: "3D Floral" },
   { src: nail5, srcSet: nail5Set, alt: "Detailed Japanese-style nail art with 3D accents", title: "Sculpted Details" },
+  { src: gallery9, srcSet: gallery9Set, alt: "Almond nails with nude base and brown floral/leopard accents", title: "Safari Blossom" },
+  { src: gallery10, srcSet: gallery10Set, alt: "Sky blue chrome stiletto nails", title: "Blue Horizon" },
+  { src: gallery11, srcSet: gallery11Set, alt: "Soft pink almond nails", title: "Petal Pink" },
+  { src: gallery12, srcSet: gallery12Set, alt: "Purple and black multichrome stiletto nails", title: "Midnight Galaxy" },
+  { src: gallery13, srcSet: gallery13Set, alt: "Black and brown ombre almond nails", title: "Espresso Ombre" },
 ];
 
 function InteractiveCard({ img }: { img: (typeof images)[0] }) {
@@ -71,7 +87,7 @@ function InteractiveCard({ img }: { img: (typeof images)[0] }) {
           loading="lazy"
           className="h-full w-full object-cover transition-smooth duration-700 group-hover:scale-110"
         />
-        
+
         {/* Shimmer Overlay */}
         <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
           <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-white/30 to-transparent" />
@@ -149,7 +165,7 @@ export function Gallery({ showGrid = false }: { showGrid?: boolean }) {
       (active + 1) % images.length,
       (active + 2) % images.length,
     ];
-    
+
     targetIndices.forEach((i) => {
       const img = new Image();
       img.src = images[i].src;
@@ -223,11 +239,10 @@ export function Gallery({ showGrid = false }: { showGrid?: boolean }) {
                     transitionDuration: isDragging ? "0ms" : "700ms",
                     transitionProperty: "transform, opacity, filter, box-shadow",
                   }}
-                  className={`group relative shrink-0 overflow-hidden rounded-3xl will-change-transform [transform-style:preserve-3d] ${
-                    isActive
+                  className={`group relative shrink-0 overflow-hidden rounded-3xl will-change-transform [transform-style:preserve-3d] ${isActive
                       ? "z-20 h-[460px] w-[300px] opacity-100 blur-0 shadow-float ring-2 ring-white md:h-[600px] md:w-[440px]"
                       : "z-10 hidden h-[380px] w-[240px] opacity-40 blur-[3px] hover:opacity-80 hover:blur-0 md:block md:h-[500px] md:w-[340px]"
-                  }`}
+                    }`}
                 >
                   {!isLoaded && (
                     <Skeleton className="absolute inset-0 h-full w-full rounded-3xl bg-rose-soft/60" />
@@ -278,7 +293,7 @@ export function Gallery({ showGrid = false }: { showGrid?: boolean }) {
             <p className="mt-4 text-sm text-muted-foreground md:text-base">
               Explore our complete collection of bespoke nail designs.
             </p>
-            
+
             <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {images.map((img, i) => (
                 <div key={i} className="aspect-[4/5] bg-transparent">

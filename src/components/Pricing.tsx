@@ -14,14 +14,13 @@ const packages = [
 
 function PricingCard({ p }: { p: (typeof packages)[0] }) {
   const tilt = use3dTilt({ max: 10, perspective: 1000, scale: 1.05 });
-  
+
   return (
     <article
-      className={`float-3d group relative flex flex-col overflow-hidden rounded-3xl will-change-transform ${
-        p.popular
+      className={`float-3d group relative flex flex-col overflow-hidden rounded-3xl will-change-transform ${p.popular
           ? "bg-blush ring-1 ring-primary/20 shadow-float lg:-my-4 lg:scale-105"
           : "bg-white shadow-card"
-      }`}
+        }`}
       onMouseMove={tilt.onMouseMove}
       onMouseLeave={tilt.onMouseLeave}
       style={tilt.style}
@@ -56,11 +55,10 @@ function PricingCard({ p }: { p: (typeof packages)[0] }) {
             href="https://wa.me/13312037251?text=Can%20i%20get%20More%20Infor%20about%20my%20session"
             target="_blank"
             rel="noopener noreferrer"
-            className={`rounded-full px-4 py-2 text-xs font-semibold transition-smooth ${
-              p.popular
+            className={`rounded-full px-4 py-2 text-xs font-semibold transition-smooth ${p.popular
                 ? "bg-primary-gradient text-primary-foreground shadow-soft hover:shadow-float"
                 : "border border-rose-deep/20 text-rose-deep hover:bg-blush"
-            }`}
+              }`}
           >
             Book
           </a>
@@ -89,6 +87,46 @@ export function Pricing() {
           {packages.map((p) => (
             <PricingCard key={p.title} p={p} />
           ))}
+        </div>
+
+        {/* Hours Section */}
+        <div className="mx-auto mt-24 max-w-2xl px-4 sm:px-0">
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-white p-8 shadow-card ring-1 ring-black/5 sm:p-12">
+            {/* Decorative Blurs */}
+            <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-rose-deep/10 blur-3xl" />
+
+            <h3 className="relative text-center font-serif text-3xl font-semibold text-foreground md:text-4xl">
+              Business Hours
+            </h3>
+
+            <div className="relative mt-10 flex flex-col gap-2">
+              {[
+                // { day: "Monday", time: "10:00 AM – 08:00 PM" },
+                { day: "Tuesday", time: "10:00 AM – 08:00 PM" },
+                { day: "Wednesday", time: "10:00 AM – 08:00 PM" },
+                { day: "Thursday", time: "10:00 AM – 08:00 PM" },
+                { day: "Friday", time: "10:00 AM – 08:00 PM" },
+                { day: "Saturday", time: "10:00 AM – 07:00 PM" },
+                { day: "Sunday", time: "10:00 AM – 07:00 PM" },
+              ].map((h) => (
+                <div
+                  key={h.day}
+                  className="group flex items-center justify-between rounded-2xl px-6 py-4 transition-all duration-300 hover:bg-blush/80 hover:shadow-sm"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/5 text-sm font-semibold text-rose-deep transition-colors group-hover:bg-primary/20">
+                      {h.day.slice(0, 3)}
+                    </div>
+                    <span className="font-medium text-foreground">{h.day}</span>
+                  </div>
+                  <span className="font-medium text-muted-foreground transition-colors group-hover:text-rose-deep">
+                    {h.time}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
